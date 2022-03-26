@@ -4,12 +4,13 @@ on:
   pull_request:
     branches:
       - main
+      - staging
     types: [labeled]
 
 jobs:
   merge-main-into-staging:
     runs-on: ubuntu-latest
-    if: ${{ github.event.label.name == 'hotfix' }}
+    if: ${{ github.event.label.name == 'hotfix' && github.event.pull_request.merged }}
     steps:
       - uses: actions/checkout@v2
       - name: Set Git Config
@@ -27,7 +28,7 @@ jobs:
 
   merge-main-into-dev:
     runs-on: ubuntu-latest
-    if: ${{ github.event.label.name == 'hotfix' }}
+    if: ${{ github.event.label.name == 'hotfix' && github.event.pull_request.merged  }}
     steps:
       - uses: actions/checkout@v2
       - name: Set Git Config
