@@ -1,0 +1,44 @@
+name: Main Hotfix Cleanup
+
+on:
+  pull_request:
+    branch:
+      - main
+    types: [labeled]
+
+jobs:
+  merge-main-into-staging:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.label.name == 'hotfix' }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set Git Config
+      run: |
+        git config --local user.email "actions@github.com"
+        git config --local user.name "Github Actions"
+
+      - name: Merge Main into Staging
+      run: |
+        git fetch --unshallow
+        git checkout staging
+        git pull
+        git merge --no-ff main -m "Auto-merge Main into Staging after hotfix"
+        git push
+
+  merge-main-into-dev:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.label.name == 'hotfix' }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set Git Config
+      run: |
+        git config --local user.email "actions@github.com"
+        git config --local user.name "Github Actions"
+
+      - name: Merge Main into Staging
+      run: |
+        git fetch --unshallow
+        git checkout dev
+        git pull
+        git merge --no-ff main -m "Auto-merge Main into Dev after hotfix"
+        git push
