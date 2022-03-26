@@ -22,7 +22,7 @@ jobs:
           git fetch --unshallow
           git checkout staging
           git pull
-          git merge --no-ff main -m "Auto-merge Main into Staging after hotfix"
+          git merge --no-ff origin/main -m "Auto-merge Main into Staging after hotfix"
           git push
 
   merge-main-into-dev:
@@ -40,5 +40,5 @@ jobs:
           git fetch --unshallow
           git checkout dev
           git pull
-          git merge --no-ff main -m "Auto-merge Main into Dev after hotfix"
+          git merge --no-ff origin/main -m "Auto-merge Main into Dev after hotfix"
           git push
