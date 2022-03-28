@@ -2,18 +2,13 @@ name: Main Hotfix Cleanup
 
 on:
   pull_request:
-    branches:
-      - main
-      - staging
-    types: [labeled]
-  pull_request_target:
     types:
       - closed
 
 jobs:
   merge-main-into-staging:
     runs-on: ubuntu-latest
-    if: ${{ github.event.label.name == 'hotfix' && github.event.pull_request.merged == true }}
+    if: ${{ github.event.label.name == 'hotfix' && github.event.pull_request.merged == true && github.base_ref == "main" }}
     steps:
       - uses: actions/checkout@v2
       - name: Set Git Config
