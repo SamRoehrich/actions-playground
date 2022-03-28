@@ -10,7 +10,7 @@ on:
 jobs:
   merge-main-into-staging:
     runs-on: ubuntu-latest
-    if: ${{ github.event.label.name == 'hotfix' && github.event.pull_request.merged == true }}
+    if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'hotfix')
     steps:
       - uses: actions/checkout@v2
       - name: Set Git Config
@@ -28,7 +28,7 @@ jobs:
 
   merge-main-into-dev:
     runs-on: ubuntu-latest
-    if: ${{ github.event.label.name == 'hotfix' && github.event.pull_request.merged == true  }}
+    if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'hotfix')
     steps:
       - uses: actions/checkout@v2
       - name: Set Git Config
