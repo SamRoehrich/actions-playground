@@ -6,9 +6,6 @@ on:
       - main
       - staging
     types: [labeled]
-  pull_request_target:
-    types:
-      - closed
 
 jobs:
   merge-main-into-staging:
