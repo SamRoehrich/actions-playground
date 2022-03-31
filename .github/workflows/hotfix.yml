@@ -26,9 +26,9 @@ jobs:
           git merge --no-ff origin/main -m "Auto-merge Main into Staging after hotfix"
           git push
 
+        if: ${{ failure() }}
       - name: If Merge Failed
       - uses: devops-infra/action-pull-request@v0.4.2
-        if: ${{ failure() }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           source_branch: main
@@ -58,9 +58,9 @@ jobs:
           git merge --no-ff origin/main -m "Auto-merge Main into Dev after hotfix"
           git push
 
+        if: ${{ failure() }}
       - name: If Merge Failed
       - uses: devops-infra/action-pull-request@v0.4.2
-        if: ${{ failure() }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           source_branch: main
