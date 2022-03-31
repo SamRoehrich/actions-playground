@@ -28,17 +28,9 @@ jobs:
 
         if: ${{ failure() }}
       - name: If Merge Failed
-      - uses: devops-infra/action-pull-request@v0.4.2
+        uses: peter-evans/create-pull-request@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          source_branch: main
-          target_branch: staging
-          title: Automatic PR - Merge Failed - github.event.pull_request.title - Main into Staging
-          template: .github/pull_request_template.md
-          body: '**Automated pull request**'
-          reviewer: github.event.pull_request.user
-          assignee: github.event.pull_request.user
-          get_diff: true
+          title: 'Automatic PR made from failure to merge Main into Staging'
 
   merge-main-into-dev:
     runs-on: ubuntu-latest
@@ -60,14 +52,6 @@ jobs:
 
         if: ${{ failure() }}
       - name: If Merge Failed
-      - uses: devops-infra/action-pull-request@v0.4.2
+        uses: peter-evans/create-pull-request@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          source_branch: main
-          target_branch: dev
-          title: Automatic PR - Merge Failed - github.event.pull_request.title - Main into Dev
-          template: .github/pull_request_template.md
-          body: '**Automated pull request**'
-          reviewer: github.event.pull_request.user
-          assignee: github.event.pull_request.user
-          get_diff: true
+          title: 'Automatic PR made from failure to merge Main into Dev'
