@@ -31,7 +31,7 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         run: |
           echo "Pull request requested"
-
+          
   merge-main-into-dev:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'hotfix')
@@ -49,9 +49,3 @@ jobs:
           git pull
           git merge --no-ff origin/main -m "Auto-merge Main into Dev after hotfix"
           git push
-
-        if: ${{ failure() }}
-      - name: If Merge Failed
-        uses: peter-evans/create-pull-request@v3
-        with:
-          title: 'Automatic PR made from failure to merge Main into Dev'
