@@ -13,6 +13,7 @@ jobs:
     if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'hotfix')
     steps:
       - uses: actions/checkout@v3
+      - uses: peter-evans/create-pull-request@v4
       - name: Set Git Config
         run: |
           git config --local user.email "actions@github.com"
