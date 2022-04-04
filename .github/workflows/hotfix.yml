@@ -26,8 +26,8 @@ jobs:
           git merge --no-ff origin/main -m "Auto-merge Main into Staging after hotfix"
           git push
 
-        if: $({ job.status == "failure" })
-      - name: Create Pull Request
+      - name: Create Pull Request on Failure
+        if: $({ failure() })
         uses: peter-evans/create-pull-request@v4
         run: |
           echo "Pull request requested"
