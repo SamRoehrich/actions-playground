@@ -13,6 +13,7 @@ jobs:
     if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'hotfix')
     steps:
       - uses: actions/checkout@v3
+      - uses: peter-evans/create-pull-request@v4
       - name: Set Git Config
         run: |
           git config --local user.email "actions@github.com"
@@ -26,12 +27,11 @@ jobs:
           git merge --no-ff origin/main -m "Auto-merge Main into Staging after hotfix"
           git push
 
-        if: $({ job.status == "failure" })
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
+      - name: Create Pull Request on Failure
+        if: $({ failure() })
         run: |
           echo "Pull request requested"
-          
+
   merge-main-into-dev:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'hotfix')
