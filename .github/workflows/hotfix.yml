@@ -28,7 +28,7 @@ jobs:
           git push
 
       - name: Create Pull Request on Failure
-        if: $({ failure() })
+        if: failure()
         run: |
           echo "Pull request requested"
 
