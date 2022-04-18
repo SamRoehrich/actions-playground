@@ -3,7 +3,7 @@ import React from 'react'
 export default function Home() {
 	return (
 		<div>
-			<p>YO, Team.</p>
+			<p className="text-2xl text-red-500">YO, Team.</p>
 		</div>
 	)
 }
